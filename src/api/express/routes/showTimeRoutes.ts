@@ -26,7 +26,9 @@ showTimeRouter
 			const showtimes = await showTimeApplication.getCollection({
 				where: whereObj,
 				relations: {
+					movie: true,
 					cinema: { seats: true },
+					seatReservations: { seat: true ,reservation: true},
 				},
 			});
 
@@ -48,14 +50,22 @@ showTimeRouter
 				data: { newShowTime },
 			});
 		}),
-	);
+);
 
 showTimeRouter
 	.route('/:id')
 	.get(
 		HandleAsync(async (req, res) => {
 			const { id } = req.params;
-			const showTime = await showTimeApplication.getOneByID(Number(id));
+			// const showTime = await showTimeApplication.getOneByID(Number(id));
+			const showTime = await showTimeApplication.getOne({
+				where: { id: Number(id) },
+				relations: {
+					movie: true,
+					cinema: { seats: true },
+					seatReservations: { seat: true ,reservation: true},
+				},
+			});
 
 			return res.status(200).json({
 				status: 'success',

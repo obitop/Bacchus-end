@@ -4,7 +4,11 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev:express": "nodemon --exec tsx ./src/api/express/main.ts"
+		"dev:express": "nodemon --exec tsx ./src/api/express/main.ts",
+		"build": "tsc",
+		"build:vercel": "echo 'TypeScript compilation skipped - using tsx runtime'",
+		"start": "tsx ./src/api/express/main.ts",
+		"seed": "tsx ./src/seeder.ts"
 	},
 	"keywords": [],
 	"author": "",

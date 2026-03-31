@@ -1,0 +1,23 @@
+{
+	"version": 2,
+	"builds": [
+		{
+			"src": "src/api/express/main.ts",
+			"use": "@vercel/node"
+		}
+	],
+	"routes": [
+		{
+			"src": "/(.*)",
+			"dest": "src/api/express/main.ts"
+		}
+	],
+	"env": {
+		"NODE_ENV": "production"
+	},
+	"functions": {
+		"src/api/express/main.ts": {
+			"maxDuration": 30
+		}
+	}
+}

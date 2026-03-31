@@ -143,6 +143,7 @@ authRouter.get('/me', protect, async (req: Request, res: Response) => {
 				user: {
 					id: user.id,
 					email: user.email,
+					role: user.role,
 					createdAt: user.createdAt,
 					updatedAt: user.updatedAt,
 				},

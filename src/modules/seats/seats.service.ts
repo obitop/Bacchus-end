@@ -60,12 +60,4 @@ export class SeatService implements IService<Seat> {
 			.execute();
 	}
 
-	async isSeatTaken(id: number): Promise<boolean | null> {
-		console.log('Checking the availability for seatID : ', id);
-		const seat = await this.getOneByID(id);
-
-		if (!seat) return null;
-
-		return seat.state == 'taken';
-	}
 }

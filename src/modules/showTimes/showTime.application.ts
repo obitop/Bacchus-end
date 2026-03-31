@@ -17,9 +17,10 @@ export class ShowTimeApplication extends CrudApplication<ShowTime> {
 
 	override async getOneByID(id: number): Promise<ShowTime | null> {
 		const showTime = await showTimeService.getOne({
-			where: { id, cinema: { seats: { state: 'free' } } },
+			where: { id },
 			relations: {
 				cinema: { seats: true },
+				movie: true,
 			},
 		});
 		console.log('showTime: ', showTime);

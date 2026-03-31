@@ -3,12 +3,14 @@ import {
 	CreateDateColumn,
 	Entity,
 	ManyToOne,
+	OneToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { Seat } from './Seat.ts';
 import { ShowTime } from './ShowTime.ts';
 import { User } from './User.ts';
+import { SeatReservation } from './SeatReservation.ts';
 
 @Entity({ name: 'reservations' })
 export class Reservation {
@@ -21,9 +23,9 @@ export class Reservation {
 	@ManyToOne(() => ShowTime, (showtime) => showtime.reservations)
 	showTime!: ShowTime;
 
-	// For simplicity a reservation can only have one seat reserved
-	@ManyToOne(() => Seat, (seat) => seat.reservations)
-	seat!: Seat;
+	@OneToMany(() => SeatReservation, (seatReservation) => seatReservation.reservation)
+	seatReservations!: SeatReservation[];
+
 
 	@Column({
 		type: 'enum',

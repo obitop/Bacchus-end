@@ -8,7 +8,7 @@ import {
 	Unique,
 } from 'typeorm';
 import { Cinema } from './Cinema.ts';
-import { Reservation } from './reservation.ts';
+import { SeatReservation } from './SeatReservation.ts';
 
 export type seatState = 'free' | 'taken';
 
@@ -26,12 +26,10 @@ export class Seat {
 	@Column({ type: 'numeric' })
 	col!: number;
 
-	@Column({ type: 'enum', enum: ['free', 'taken'], default: 'free' })
-	state!: seatState;
-
 	@Column({ type: 'varchar', default: 'regular' })
 	type!: string;
 
-	@OneToMany(() => Reservation, (reservation) => reservation.seat)
-	reservations!: Reservation[];
+	@OneToMany(() => SeatReservation, (seatReservation) => seatReservation.seat)
+	seatReservations!: SeatReservation[];
+
 }

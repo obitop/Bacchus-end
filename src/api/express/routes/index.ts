@@ -4,6 +4,7 @@ import { movieRouter } from './movieRoutes.ts';
 import { showTimeRouter } from './showTimeRoutes.ts';
 import { cinemaRouter } from './cinemaRoutes.ts';
 import { reservationRouter } from './reservationRoutes.ts';
+import seatReservationRouter from './seatReservationsRoutes.ts';
 
 export default {
 	attach: (app: Application) => {
@@ -12,5 +13,7 @@ export default {
 		app.use('/showtimes', showTimeRouter);
 		app.use('/cinemas', cinemaRouter);
 		app.use('/reservations', reservationRouter);
+		app.use('/seatReservations', seatReservationRouter);
+
 	},
 };

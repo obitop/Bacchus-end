@@ -2,6 +2,7 @@ import { Reservation } from '@/data-access/typeorm/entities/reservation.ts';
 import {
 	reservationRepo,
 	seatRepo,
+	SeatReservationRepo,
 	showTimeRepo,
 } from '@/data-access/typeorm/postgres/DataSource.ts';
 import { AppError } from '@/interfaces/Errors/AppError.ts';
@@ -10,6 +11,8 @@ import { type DeepPartial } from 'typeorm';
 import { SeatService } from '../seats/seats.service.ts';
 import { ShowTimeService } from '../showTimes/showTimes.service.ts';
 import { ReservationService } from './reservations.service.ts';
+import type { Seat } from '@/data-access/typeorm/entities/Seat.ts';
+import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.ts';
 
 const reservationService = new ReservationService(reservationRepo);
 const seatService = new SeatService(seatRepo);
@@ -27,11 +30,17 @@ export class ReservationApplication extends CrudApplication<Reservation> {
 	override async createOne(
 		payload: DeepPartial<Reservation>,
 	): Promise<Reservation> {
-		// I should search the possibility of combining these two query together
+		console.log('Payload: ', payload);
 
-		const isSeatTaken = await seatService.isSeatTaken(
-			payload.seat as unknown as number,
-		);
+		// Checking if the seat is already taken for this showTime
+		const isSeatTaken = await SeatReservationRepo.exists({
+			where: {
+				// IMPORTANT
+				// I believe thiss checks only for the first seat in the array but for now we will only allow reserving one seat per reservation, we can implement multiple seats reservation later
+				seat: { id: Number(payload.seatReservations![0]!.seat) },
+				showTime: { id: Number(payload.showTime) },
+			},
+		});
 
 		if (isSeatTaken) {
 			throw new AppError(
@@ -42,17 +51,19 @@ export class ReservationApplication extends CrudApplication<Reservation> {
 
 		// Supposedly chekcing if the Seat is actually linked to this showTime and the cinema
 		console.log(
-			`Checking seat for this showtime, ${payload.showTime} , ${payload.seat}`,
+			`Checking seat for this showtime, ${payload.showTime} , ${payload.seatReservations![0]!.seat}`,
 		);
 		const seatValid = await showTimeRepo.exists({
 			where: {
 				id: Number(payload.showTime),
-				cinema: { seats: { id: Number(payload.seat) } },
+				cinema: {
+					seats: { id: Number(payload.seatReservations![0]!.seat) },
+				},
 			},
 			relations: { cinema: { seats: true } },
 		});
 
-		console.log(seatValid);
+		console.log('seat validity: ', seatValid);
 		if (!seatValid) {
 			throw new AppError(
 				400,
@@ -60,11 +71,19 @@ export class ReservationApplication extends CrudApplication<Reservation> {
 			);
 		}
 
-		// We directly reserve the seat FOR NOW we should implement a more realistic scenario
-		await seatService.updateOne(payload.seat as unknown as number, {
-			state: 'taken',
+		const newReservation = await reservationService.createOne({
+			showTime: payload.showTime as unknown as ShowTime,
+			user: payload.user as any,
 		});
 
-		return reservationService.createOne(payload);
+		const newSeatReservation = SeatReservationRepo.create({
+			seat: Number(payload.seatReservations![0]!.seat) as unknown as Seat,
+			showTime: Number(payload.showTime) as unknown as ShowTime,
+			reservation: newReservation.id as unknown as Reservation,
+		});
+		const newSeatReservationSaved = await SeatReservationRepo.save(newSeatReservation);
+		console.log('newSeatReservationSaved: ', newSeatReservationSaved);
+
+		return newReservation;
 	}
 }

@@ -15,6 +15,7 @@ import { Cinema } from './Cinema.ts';
 import { Movie } from './Movie.ts';
 import type { Double } from 'typeorm/browser';
 import { Reservation } from './reservation.ts';
+import { SeatReservation } from './SeatReservation.ts';
 
 @Entity()
 export class ShowTime {
@@ -41,6 +42,9 @@ export class ShowTime {
 
 	@OneToMany(() => Reservation, (reservation) => reservation.showTime)
 	reservations!: Reservation[];
+
+	@OneToMany(() => SeatReservation, (seatReservation) => seatReservation.showTime)
+	seatReservations!: SeatReservation[];
 }
 
 @EventSubscriber()

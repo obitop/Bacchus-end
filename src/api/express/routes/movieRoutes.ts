@@ -63,7 +63,14 @@ movieRouter
 				data: { updated },
 			});
 		}),
-	)
+	).put(HandleAsync(async (req, res) => {
+		const updated = await movieApplication.updateOne(Number(req.params.id), req.body);
+
+		return res.status(200).json({
+			status: "success",
+			data: {updated}
+		})
+	}))
 	.delete(
 		HandleAsync(async (req, res) => {
 			const deleted = await movieApplication.deleteOne(
