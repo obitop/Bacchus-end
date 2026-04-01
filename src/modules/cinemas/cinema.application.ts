@@ -1,12 +1,12 @@
-import type { Cinema } from '@/data-access/typeorm/entities/Cinema.ts';
+import type { Cinema } from '@/data-access/typeorm/entities/Cinema.js';
 import {
 	cinemaRepo,
 	seatRepo,
-} from '@/data-access/typeorm/postgres/DataSource.ts';
-import { CrudApplication } from '@/util/CrudApplication.ts';
+} from '@/data-access/typeorm/postgres/DataSource.js';
+import { CrudApplication } from '@/util/CrudApplication.js';
 import type { DeepPartial } from 'typeorm';
-import { SeatService } from '../seats/seats.service.ts';
-import { CinemaService } from './cinema.service.ts';
+import { SeatService } from '../seats/seats.service.js';
+import { CinemaService } from './cinema.service.js';
 
 const cinemaService = new CinemaService(cinemaRepo);
 const seatService = new SeatService(seatRepo);

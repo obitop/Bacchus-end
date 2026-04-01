@@ -44,11 +44,11 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
+		"noEmit": false,
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"]
 		}
-	}
+	},
+	"exclude": ["./dist", "node_modules"]
 }

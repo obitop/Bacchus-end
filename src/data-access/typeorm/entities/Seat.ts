@@ -1,14 +1,6 @@
-import {
-	Column,
-	Entity,
-	ManyToOne,
-	OneToMany,
-	PrimaryColumn,
-	PrimaryGeneratedColumn,
-	Unique,
-} from 'typeorm';
-import { Cinema } from './Cinema.ts';
-import { SeatReservation } from './SeatReservation.ts';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import type { Cinema } from './Cinema.js'; // Import type only
+import type { SeatReservation } from './SeatReservation.js';
 
 export type seatState = 'free' | 'taken';
 
@@ -17,8 +9,11 @@ export class Seat {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@ManyToOne(() => Cinema, (cinema) => cinema.seats)
+	@ManyToOne('Cinema', (cinema: Cinema) => cinema.seats)
 	cinema!: Cinema;
+
+	@OneToMany('SeatReservation', (seatReservation: SeatReservation) => seatReservation.seat)
+	seatReservations!: SeatReservation[];
 
 	@Column({ type: 'numeric' })
 	row!: number;
@@ -28,8 +23,4 @@ export class Seat {
 
 	@Column({ type: 'varchar', default: 'regular' })
 	type!: string;
-
-	@OneToMany(() => SeatReservation, (seatReservation) => seatReservation.seat)
-	seatReservations!: SeatReservation[];
-
 }

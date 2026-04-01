@@ -1,10 +1,10 @@
 import { Router, type Request, type Response } from 'express';
-import { dataSource } from '@/data-access/typeorm/postgres/DataSource.ts';
-import { User } from '@/data-access/typeorm/entities/User.ts';
-import { hashPassword, comparePassword } from '../auth/bcrypt.ts';
-import { generateToken } from '../auth/jwt.ts';
-import { protect } from '../middlewares/authMiddleware.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
+import { dataSource } from '@/data-access/typeorm/postgres/DataSource.js';
+import { User } from '@/data-access/typeorm/entities/User.js';
+import { hashPassword, comparePassword } from '../auth/bcrypt.js';
+import { generateToken } from '../auth/jwt.js';
+import { protect } from '../middlewares/authMiddleware.js';
+import HandleAsync from '@/util/HandleAsync.js';
 
 export const authRouter = Router();
 const userRepository = dataSource.getRepository(User);

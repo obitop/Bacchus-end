@@ -1,9 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
-import { verifyToken, type TokenPayload } from '../auth/jwt.ts';
-import { userRepo } from '@/data-access/typeorm/postgres/DataSource.ts';
-import type { User } from '@/data-access/typeorm/entities/User.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
-import { AppError } from '@/interfaces/Errors/AppError.ts';
+import { verifyToken, type TokenPayload } from '../auth/jwt.js';
+import { userRepo } from '@/data-access/typeorm/postgres/DataSource.js';
+import type { User } from '@/data-access/typeorm/entities/User.js';
+import HandleAsync from '@/util/HandleAsync.js';
+import { AppError } from '@/interfaces/Errors/AppError.js';
 
 declare global {
 	namespace Express {
@@ -68,4 +68,3 @@ export const restrictTo = (role: Role) =>
 			next();
 		}
 	});
-

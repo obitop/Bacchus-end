@@ -1,5 +1,5 @@
-import type { Movie } from '@/data-access/typeorm/entities/Movie.ts';
-import type { IService } from '@/interfaces/IService.ts';
+import type { Movie } from '@/data-access/typeorm/entities/Movie.js';
+import type { IService } from '@/interfaces/IService.js';
 import type {
 	DeepPartial,
 	FindManyOptions,

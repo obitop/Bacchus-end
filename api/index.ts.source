@@ -1,0 +1,11 @@
+import { app } from '../dist/api/express/server.js';
+
+export default function handler(req: any, res: any) {
+	try {
+		// Handle the request with Express
+		app(req, res);
+	} catch (error) {
+		console.error('Handler error:', error);
+		res.status(500).json({ error: 'Internal server error' });
+	}
+}

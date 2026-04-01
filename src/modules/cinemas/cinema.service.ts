@@ -1,5 +1,5 @@
-import type { Cinema } from '@/data-access/typeorm/entities/Cinema.ts';
-import type { IService } from '@/interfaces/IService.ts';
+import type { Cinema } from '@/data-access/typeorm/entities/Cinema.js';
+import type { IService } from '@/interfaces/IService.js';
 import type {
 	Repository,
 	FindManyOptions,

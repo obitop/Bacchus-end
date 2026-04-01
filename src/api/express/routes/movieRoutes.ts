@@ -1,8 +1,8 @@
-import { MovieApplication } from '@/modules/movies/movies.application.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
+import { MovieApplication } from '@/modules/movies/movies.application.js';
+import HandleAsync from '@/util/HandleAsync.js';
 import { Router, type Request, type Response } from 'express';
-import { showTimeRouter } from './showTimeRoutes.ts';
-import { protect, restrictTo } from '../middlewares/authMiddleware.ts';
+import { showTimeRouter } from './showTimeRoutes.js';
+import { protect, restrictTo } from '../middlewares/authMiddleware.js';
 
 export const movieRouter = Router();
 
@@ -20,7 +20,6 @@ movieRouter
 			message: 'Movie Created Successfully',
 			data: { movie },
 		});
-
 	})
 	.get(
 		HandleAsync(async (req: Request, res: Response) => {
@@ -63,14 +62,20 @@ movieRouter
 				data: { updated },
 			});
 		}),
-	).put(HandleAsync(async (req, res) => {
-		const updated = await movieApplication.updateOne(Number(req.params.id), req.body);
+	)
+	.put(
+		HandleAsync(async (req, res) => {
+			const updated = await movieApplication.updateOne(
+				Number(req.params.id),
+				req.body,
+			);
 
-		return res.status(200).json({
-			status: "success",
-			data: {updated}
-		})
-	}))
+			return res.status(200).json({
+				status: 'success',
+				data: { updated },
+			});
+		}),
+	)
 	.delete(
 		HandleAsync(async (req, res) => {
 			const deleted = await movieApplication.deleteOne(

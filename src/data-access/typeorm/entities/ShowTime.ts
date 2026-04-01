@@ -11,21 +11,23 @@ import {
 	type EntitySubscriberInterface,
 	type InsertEvent,
 } from 'typeorm';
-import { Cinema } from './Cinema.ts';
-import { Movie } from './Movie.ts';
+import type { Cinema } from './Cinema.js'; // Import type only
+import type { Movie } from './Movie.js'; // Import type only
 import type { Double } from 'typeorm/browser';
-import { Reservation } from './reservation.ts';
-import { SeatReservation } from './SeatReservation.ts';
+import type { Reservation } from './reservation.js'; // Import type only
+import type { SeatReservation } from './SeatReservation.js'; // Import type only
 
 @Entity()
 export class ShowTime {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@ManyToOne(() => Movie, (movie) => movie.showtimes, { onDelete: 'CASCADE' })
+	@ManyToOne('Movie', (movie: Movie) => movie.showtimes, {
+		onDelete: 'CASCADE',
+	})
 	movie!: Movie;
 
-	@ManyToOne(() => Cinema, (cinema) => cinema.showtimes, { eager: true })
+	@ManyToOne('Cinema', (cinema: Cinema) => cinema.showtimes, { eager: true })
 	cinema!: Cinema;
 
 	@Column('date')
@@ -40,10 +42,16 @@ export class ShowTime {
 	@UpdateDateColumn()
 	updatedAt!: Date;
 
-	@OneToMany(() => Reservation, (reservation) => reservation.showTime)
+	@OneToMany(
+		'Reservation',
+		(reservation: Reservation) => reservation.showTime,
+	)
 	reservations!: Reservation[];
 
-	@OneToMany(() => SeatReservation, (seatReservation) => seatReservation.showTime)
+	@OneToMany(
+		'SeatReservation',
+		(seatReservation: SeatReservation) => seatReservation.showTime,
+	)
 	seatReservations!: SeatReservation[];
 }
 

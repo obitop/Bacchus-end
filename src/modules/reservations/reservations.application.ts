@@ -1,18 +1,18 @@
-import { Reservation } from '@/data-access/typeorm/entities/reservation.ts';
+import { Reservation } from '@/data-access/typeorm/entities/reservation.js';
 import {
 	reservationRepo,
 	seatRepo,
 	SeatReservationRepo,
 	showTimeRepo,
-} from '@/data-access/typeorm/postgres/DataSource.ts';
-import { AppError } from '@/interfaces/Errors/AppError.ts';
-import { CrudApplication } from '@/util/CrudApplication.ts';
+} from '@/data-access/typeorm/postgres/DataSource.js';
+import { AppError } from '@/interfaces/Errors/AppError.js';
+import { CrudApplication } from '@/util/CrudApplication.js';
 import { type DeepPartial } from 'typeorm';
-import { SeatService } from '../seats/seats.service.ts';
-import { ShowTimeService } from '../showTimes/showTimes.service.ts';
-import { ReservationService } from './reservations.service.ts';
-import type { Seat } from '@/data-access/typeorm/entities/Seat.ts';
-import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.ts';
+import { SeatService } from '../seats/seats.service.js';
+import { ShowTimeService } from '../showTimes/showTimes.service.js';
+import { ReservationService } from './reservations.service.js';
+import type { Seat } from '@/data-access/typeorm/entities/Seat.js';
+import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.js';
 
 const reservationService = new ReservationService(reservationRepo);
 const seatService = new SeatService(seatRepo);
@@ -81,7 +81,8 @@ export class ReservationApplication extends CrudApplication<Reservation> {
 			showTime: Number(payload.showTime) as unknown as ShowTime,
 			reservation: newReservation.id as unknown as Reservation,
 		});
-		const newSeatReservationSaved = await SeatReservationRepo.save(newSeatReservation);
+		const newSeatReservationSaved =
+			await SeatReservationRepo.save(newSeatReservation);
 		console.log('newSeatReservationSaved: ', newSeatReservationSaved);
 
 		return newReservation;

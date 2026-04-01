@@ -1,5 +1,5 @@
-import type { Reservation } from '@/data-access/typeorm/entities/reservation.ts';
-import type { IService } from '@/interfaces/IService.ts';
+import type { Reservation } from '@/data-access/typeorm/entities/reservation.js';
+import type { IService } from '@/interfaces/IService.js';
 import type { UUID } from 'node:crypto';
 import type {
 	DeepPartial,

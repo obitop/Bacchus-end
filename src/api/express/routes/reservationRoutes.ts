@@ -1,9 +1,9 @@
-import { ReservationApplication } from '@/modules/reservations/reservations.application.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
+import { ReservationApplication } from '@/modules/reservations/reservations.application.js';
+import HandleAsync from '@/util/HandleAsync.js';
 import { Router } from 'express';
-import { protect, restrictTo } from '../middlewares/authMiddleware.ts';
-import type { User } from '@/data-access/typeorm/entities/User.ts';
-import { reservationRepo } from '@/data-access/typeorm/postgres/DataSource.ts';
+import { protect, restrictTo } from '../middlewares/authMiddleware.js';
+import type { User } from '@/data-access/typeorm/entities/User.js';
+import { reservationRepo } from '@/data-access/typeorm/postgres/DataSource.js';
 
 export const reservationRouter = Router();
 

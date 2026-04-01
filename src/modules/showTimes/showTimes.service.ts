@@ -1,5 +1,5 @@
-import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.ts';
-import type { IService } from '@/interfaces/IService.ts';
+import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.js';
+import type { IService } from '@/interfaces/IService.js';
 import type {
 	DeepPartial,
 	FindManyOptions,

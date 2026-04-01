@@ -1,7 +1,7 @@
-import { Seat } from '@/data-access/typeorm/entities/Seat.ts';
-import { seatRepo } from '@/data-access/typeorm/postgres/DataSource.ts';
-import { CrudApplication } from '@/util/CrudApplication.ts';
-import { SeatService } from './seats.service.ts';
+import { Seat } from '@/data-access/typeorm/entities/Seat.js';
+import { seatRepo } from '@/data-access/typeorm/postgres/DataSource.js';
+import { CrudApplication } from '@/util/CrudApplication.js';
+import { SeatService } from './seats.service.js';
 
 const seatService = new SeatService(seatRepo);
 

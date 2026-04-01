@@ -1,5 +1,5 @@
-import type { SeatReservation } from '@/data-access/typeorm/entities/SeatReservation.ts';
-import type { IService } from '@/interfaces/IService.ts';
+import type { SeatReservation } from '@/data-access/typeorm/entities/SeatReservation.js';
+import type { IService } from '@/interfaces/IService.js';
 import type {
 	DeepPartial,
 	FindManyOptions,
@@ -9,13 +9,17 @@ import type {
 import type { UpdateResult } from 'typeorm/browser';
 
 export class SeatReservationService implements IService<SeatReservation> {
-	constructor(private readonly SeatReservationRepo: Repository<SeatReservation>) {}
+	constructor(
+		private readonly SeatReservationRepo: Repository<SeatReservation>,
+	) {}
 
 	async getAll(findOptions: FindManyOptions<SeatReservation>) {
 		return this.SeatReservationRepo.find(findOptions);
 	}
 
-	async getOne(findOneOptions: FindOneOptions<SeatReservation>): Promise<SeatReservation | null> {
+	async getOne(
+		findOneOptions: FindOneOptions<SeatReservation>,
+	): Promise<SeatReservation | null> {
 		return this.SeatReservationRepo.findOne(findOneOptions);
 	}
 

@@ -7,7 +7,7 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { Reservation } from './reservation.ts';
+import type { Reservation } from './reservation.js'; // Import type only
 
 type role = 'user' | 'admin';
 
@@ -25,7 +25,7 @@ export class User {
 	@Column({ type: 'enum', enum: ['user', 'admin'], default: 'user' })
 	role!: role;
 
-	@OneToMany(() => Reservation, (reservation) => reservation.user)
+	@OneToMany('Reservation', (reservation: Reservation) => reservation.user)
 	reservations!: Reservation[];
 
 	@CreateDateColumn()

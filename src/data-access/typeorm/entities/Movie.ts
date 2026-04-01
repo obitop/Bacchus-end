@@ -6,7 +6,7 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { ShowTime } from './ShowTime.ts';
+import type { ShowTime } from './ShowTime.js'; // Import type only
 
 @Entity()
 export class Movie {
@@ -29,7 +29,7 @@ export class Movie {
 	@Column({ type: 'numeric' })
 	duration!: number;
 
-	@OneToMany(() => ShowTime, (showtime) => showtime.movie)
+	@OneToMany('ShowTime', (showtime: ShowTime) => showtime.movie)
 	showtimes!: ShowTime[];
 
 	@CreateDateColumn()

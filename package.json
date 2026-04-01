@@ -4,11 +4,13 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev:express": "nodemon --exec tsx ./src/api/express/main.ts",
+		"dev:express": "nodemon --exec tsx ./src/api/express/main.js",
 		"build": "tsc",
-		"build:vercel": "echo 'TypeScript compilation skipped - using tsx runtime'",
-		"start": "tsx ./src/api/express/main.ts",
-		"seed": "tsx ./src/seeder.ts"
+		"build:vercel": "tsc && tsc-alias",
+		"start": "tsx ./src/api/express/main.js",
+		"seed": "tsx ./src/seeder.js",
+		"typeorm": "typeorm-ts-node-esm -d ./src/data-access/typeorm/postgres/DataSource.ts",
+		"migration:generate": "typeorm-ts-node-esm migration:generate -d ./src/data-access/typeorm/postgres/DataSource.ts"
 	},
 	"keywords": [],
 	"author": "",
@@ -25,6 +27,7 @@
 		"pg": "^8.18.0",
 		"pq": "^0.0.3",
 		"reflect-metadata": "^0.2.2",
+		"serverless-http": "^4.0.0",
 		"typeorm": "^0.3.28",
 		"typescript": "^5.9.3"
 	},
@@ -34,6 +37,12 @@
 		"@types/express": "^5.0.6",
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/morgan": "^1.9.10",
-		"@types/node": "^25.2.3"
+		"@types/node": "^25.2.3",
+		"@types/pg": "^8.20.0",
+		"ts-node": "^10.9.2",
+		"tsc-alias": "^1.8.16"
+	},
+	"engines": {
+		"node": ">=18"
 	}
 }

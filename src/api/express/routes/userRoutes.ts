@@ -1,6 +1,6 @@
-import HandleAsync from '@/util/HandleAsync.ts';
+import HandleAsync from '@/util/HandleAsync.js';
 import { Router } from 'express';
-import { protect } from '../middlewares/authMiddleware.ts';
+import { protect } from '../middlewares/authMiddleware.js';
 
 const userRouter = Router();
 

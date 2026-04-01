@@ -1,8 +1,8 @@
-import { SeatReservation } from '@/data-access/typeorm/entities/SeatReservation.ts';
-import { SeatReservationRepo } from '@/data-access/typeorm/postgres/DataSource.ts';
-import { AppError } from '@/interfaces/Errors/AppError.ts';
-import { CrudApplication } from '@/util/CrudApplication.ts';
-import { SeatReservationService } from './seatReservations.service.ts';
+import { SeatReservation } from '@/data-access/typeorm/entities/SeatReservation.js';
+import { SeatReservationRepo } from '@/data-access/typeorm/postgres/DataSource.js';
+import { AppError } from '@/interfaces/Errors/AppError.js';
+import { CrudApplication } from '@/util/CrudApplication.js';
+import { SeatReservationService } from './seatReservations.service.js';
 
 const seatReservationService = new SeatReservationService(SeatReservationRepo);
 
@@ -14,5 +14,4 @@ export class SeatReservationApplication extends CrudApplication<SeatReservation>
 	constructor() {
 		super(seatReservationService);
 	}
-
 }

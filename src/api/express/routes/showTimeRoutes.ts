@@ -1,7 +1,7 @@
-import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.ts';
-import { SeatService } from '@/modules/seats/seats.service.ts';
-import { ShowTimeApplication } from '@/modules/showTimes/showTime.application.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
+import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.js';
+import { SeatService } from '@/modules/seats/seats.service.js';
+import { ShowTimeApplication } from '@/modules/showTimes/showTime.application.js';
+import HandleAsync from '@/util/HandleAsync.js';
 import { Router } from 'express';
 import type { FindOptionsWhere } from 'typeorm';
 
@@ -28,7 +28,7 @@ showTimeRouter
 				relations: {
 					movie: true,
 					cinema: { seats: true },
-					seatReservations: { seat: true ,reservation: true},
+					seatReservations: { seat: true, reservation: true },
 				},
 			});
 
@@ -50,7 +50,7 @@ showTimeRouter
 				data: { newShowTime },
 			});
 		}),
-);
+	);
 
 showTimeRouter
 	.route('/:id')
@@ -63,7 +63,7 @@ showTimeRouter
 				relations: {
 					movie: true,
 					cinema: { seats: true },
-					seatReservations: { seat: true ,reservation: true},
+					seatReservations: { seat: true, reservation: true },
 				},
 			});
 

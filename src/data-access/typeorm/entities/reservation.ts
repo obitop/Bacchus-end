@@ -7,25 +7,27 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { Seat } from './Seat.ts';
-import { ShowTime } from './ShowTime.ts';
-import { User } from './User.ts';
-import { SeatReservation } from './SeatReservation.ts';
+import { Seat } from './Seat.js';
+import type { ShowTime } from './ShowTime.js'; // Import type only
+import type { User } from './User.js'; // Import type only
+import type { SeatReservation } from './SeatReservation.js'; // Import type only
 
 @Entity({ name: 'reservations' })
 export class Reservation {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@ManyToOne(() => User, (user) => user.reservations, {})
+	@ManyToOne('User', (user: User) => user.reservations, {})
 	user!: User;
 
-	@ManyToOne(() => ShowTime, (showtime) => showtime.reservations)
+	@ManyToOne('ShowTime', (showTime: ShowTime) => showTime.reservations)
 	showTime!: ShowTime;
 
-	@OneToMany(() => SeatReservation, (seatReservation) => seatReservation.reservation)
+	@OneToMany(
+		'SeatReservation',
+		(seatReservation: SeatReservation) => seatReservation.reservation,
+	)
 	seatReservations!: SeatReservation[];
-
 
 	@Column({
 		type: 'enum',

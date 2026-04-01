@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Seat } from './Seat.ts';
-import { ShowTime } from './ShowTime.ts';
+import type { Seat } from './Seat.js'; // Import type only
+import type { ShowTime } from './ShowTime.js'; // Import type only
 
 @Entity()
 export class Cinema {
@@ -19,10 +19,10 @@ export class Cinema {
 	@Column({ type: 'numeric' })
 	seatsPerRow!: number;
 
-	@OneToMany(() => Seat, (seat) => seat.cinema)
+	@OneToMany('Seat', (seat: Seat) => seat.cinema)
 	seats!: Seat[];
 
-	@OneToMany(() => ShowTime, (showtime) => showtime.cinema)
+	@OneToMany('ShowTime', (showtime: ShowTime) => showtime.cinema)
 	showtimes!: ShowTime[];
 
 	@Column({ type: 'date' })

@@ -1,5 +1,5 @@
-import type { Seat } from '@/data-access/typeorm/entities/Seat.ts';
-import type { IService } from '@/interfaces/IService.ts';
+import type { Seat } from '@/data-access/typeorm/entities/Seat.js';
+import type { IService } from '@/interfaces/IService.js';
 import type {
 	DeepPartial,
 	FindManyOptions,
@@ -59,5 +59,4 @@ export class SeatService implements IService<Seat> {
 			.values(seats)
 			.execute();
 	}
-
 }

@@ -1,10 +1,10 @@
-import type { AppError } from '@/interfaces/Errors/AppError.ts';
+import type { AppError } from '@/interfaces/Errors/AppError.js';
 import express, {
 	type NextFunction,
 	type Request,
 	type Response,
 } from 'express';
-import routes from './routes/index.ts';
+import routes from './routes/index.js';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -22,29 +22,43 @@ const ALLOWED_ORIGINS = [
 	'https://kd441fh1-4000.uks1.devtunnels.ms',
 ];
 
-app.use(cors({
-	origin: (origin, callback) => {
-		if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-			callback(null, true);
-		} else {
-			callback(new Error('Not allowed by CORS'));
-		}
-	},
-	methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-	allowedHeaders: ['Content-Type', 'Authorization'],
-	credentials: true,
-}));
+function isOriginAllowed(origin: string | undefined): boolean {
+	if (!origin) return true;
+	if (ALLOWED_ORIGINS.includes(origin)) return true;
+	// Allow Vercel preview deployments
+	if (/^https:\/\/.*\.vercel\.app$/.test(origin)) return true;
+	if (/^https:\/\/.*\.vercel\.com$/.test(origin)) return true;
+	return false;
+}
 
-app.options('/*aa', cors({
-	origin: (origin, callback) => {
-		if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-			callback(null, true);
-		} else {
-			callback(new Error('Not allowed by CORS'));
-		}
-	},
-	credentials: true,
-}));
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			if (isOriginAllowed(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
+		methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+		allowedHeaders: ['Content-Type', 'Authorization'],
+		credentials: true,
+	}),
+);
+
+app.options(
+	'/*aa',
+	cors({
+		origin: (origin, callback) => {
+			if (isOriginAllowed(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
+		credentials: true,
+	}),
+);
 
 routes.attach(app);
 

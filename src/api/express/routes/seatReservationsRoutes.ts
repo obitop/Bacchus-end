@@ -1,5 +1,5 @@
-import { SeatReservationApplication } from '@/modules/seatReservations/seatReservations.application.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
+import { SeatReservationApplication } from '@/modules/seatReservations/seatReservations.application.js';
+import HandleAsync from '@/util/HandleAsync.js';
 import { Router } from 'express';
 
 const seatReservationRouter = Router();

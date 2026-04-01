@@ -1,7 +1,7 @@
-import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.ts';
-import { CrudApplication } from '@/util/CrudApplication.ts';
-import { ShowTimeService } from './showTimes.service.ts';
-import { showTimeRepo } from '@/data-access/typeorm/postgres/DataSource.ts';
+import type { ShowTime } from '@/data-access/typeorm/entities/ShowTime.js';
+import { CrudApplication } from '@/util/CrudApplication.js';
+import { ShowTimeService } from './showTimes.service.js';
+import { showTimeRepo } from '@/data-access/typeorm/postgres/DataSource.js';
 import type { FindOneOptions } from 'typeorm';
 
 const showTimeService = new ShowTimeService(showTimeRepo);

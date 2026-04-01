@@ -1,9 +1,6 @@
 {
 	"version": 2,
-	"routes": [
-		{
-			"src": "/(.*)",
-			"dest": "src/api/express/main.ts"
-		}
-	]
+	"buildCommand": "npm run build:vercel && npx tsc-alias",
+	"builds": [{ "src": "api/index.js", "use": "@vercel/node" }],
+	"routes": [{ "src": "/(.*)", "dest": "/api/index.js" }]
 }

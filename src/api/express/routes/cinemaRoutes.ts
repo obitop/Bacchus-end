@@ -1,5 +1,5 @@
-import { CinemaApplication } from '@/modules/cinemas/cinema.application.ts';
-import HandleAsync from '@/util/HandleAsync.ts';
+import { CinemaApplication } from '@/modules/cinemas/cinema.application.js';
+import HandleAsync from '@/util/HandleAsync.js';
 import { Router } from 'express';
 
 export const cinemaRouter = Router();
