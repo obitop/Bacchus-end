@@ -21,7 +21,7 @@ showTimeRouter
 			if (movieId) {
 				whereObj = { movie: { id: Number(movieId) } };
 			}
-			console.log('where filter: ', whereObj);
+			console.log('where no filter: ', whereObj);
 
 			const showtimes = await showTimeApplication.getCollection({
 				where: whereObj,
