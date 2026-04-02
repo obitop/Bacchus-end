@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 			dbReady = true;
 		} catch (err) {
 			console.error('Database connection failed:', err);
-			res.status(500).json({ status: 'fail', message: 'Database connection failed' });
+			res.status(200).json({ status: 'fail', message: 'Database connection failed' });
 			return;
 		}
 	}

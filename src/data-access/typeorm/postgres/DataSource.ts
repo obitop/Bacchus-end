@@ -17,7 +17,7 @@ const DB_URL =
 export const dataSource = new DataSource({
 	type: 'postgres',
 	url: DB_URL,
-	synchronize: true,
+	synchronize: process.env.NODE_ENV !== 'production',
 	entities: [
 		User,
 		Movie,
@@ -31,7 +31,7 @@ export const dataSource = new DataSource({
 		? { rejectUnauthorized: false }
 		: false,
 	migrations: ['dist/data-access/typeorm/postgres/migrations/*.js'],
-	migrationsRun: false,
+	migrationsRun: true,
 });
 
 let initPromise: Promise<DataSource> | null = null;
